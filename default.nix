@@ -39,7 +39,7 @@ let
               name = "${namePrefix}-${repoMeta.version}";
               inherit (repoMeta) version;
               src = super.fetchFromGitHub {
-                owner = "emacs-mirror";
+                owner = "antifuchs";
                 repo = "emacs";
                 inherit (repoMeta) sha256 rev;
               };
@@ -85,9 +85,18 @@ let
 
   emacsGit = mkGitEmacs "emacs-git" ./repos/emacs/emacs-master.json;
 
-  emacsGcc = (mkGitEmacs "emacs-gcc" ./repos/emacs/emacs-feature_native-comp.json).override {
+  emacsGcc = ((mkGitEmacs "emacs-gcc" ./repos/emacs/emacs-feature_native-comp.json).override {
     nativeComp = true;
-  };
+  });
+  # .overrideAttrs (
+  #   old: {
+  #     src = super.fetchFromGitHub {
+  #       owner = "emacs-mirror";
+  #       repo = "emacs";
+  #       inherit (super.repoMeta) sha256 rev;
+  #     };
+  #   }
+  # );
 
   emacsUnstable = (mkGitEmacs "emacs-unstable" ./repos/emacs/emacs-unstable.json).overrideAttrs (
     old: {
