@@ -64,7 +64,7 @@ let
     name = "emacs-gcc-${repoMeta.version}";
     inherit (repoMeta) version;
     src = super.fetchFromGitHub {
-      owner = "emacs-mirror";
+      owner = "antifuchs";
       repo = "emacs";
       inherit (repoMeta) sha256 rev;
     };
